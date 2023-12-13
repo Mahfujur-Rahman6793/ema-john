@@ -39,3 +39,7 @@
     align-items: center;
     /* text-align: center; */
 }
+
+.pagination .selected{
+    background-color: #FF9900;
+}
