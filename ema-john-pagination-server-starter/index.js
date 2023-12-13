@@ -47,7 +47,7 @@ run().catch(console.dir);
 
 
 app.get('/', (req, res) =>{
-    res.send('john is busy shopping')
+    res.send('john ready to shopping shopping')
 })
 
 app.listen(port, () =>{
