@@ -8,9 +8,10 @@ import { Link, useLoaderData } from 'react-router-dom';
 const Shop = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
-    const {count} = useLoaderData();
+    const { count } = useLoaderData();
+    const [itemPerPage, setItemPerPage] = useState(10);
     // console.log(count);
-    const itemPerPage = 10;
+    // const itemPerPage = 10;
     const totalItem = 76;
     const numberOfPage = Math.ceil(totalItem / itemPerPage);
 
@@ -22,9 +23,7 @@ const Shop = () => {
 
 
     const pages = [...Array(numberOfPage).keys()];
-    console.log(pages)
-
-
+    // console.log(pages)
 
     console.log(pages);
 
@@ -86,6 +85,11 @@ const Shop = () => {
         deleteShoppingCart();
     }
 
+    const handlePage = (e) => {
+        const value = parseInt(e.target.value);
+        setItemPerPage(value);
+    }
+
     return (
         <div className='shop-container'>
             <div className="products-container">
@@ -112,6 +116,13 @@ const Shop = () => {
                 {
                     pages.map(page => <button> {page} </button>)
                 }
+                <select name="" id="" onChange={handlePage}>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                </select>
 
             </div>
         </div>
