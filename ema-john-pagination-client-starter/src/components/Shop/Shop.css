@@ -25,3 +25,17 @@
     justify-content: space-between;
     align-items: center;
 }
+.pagination{
+    background: #FF9900;
+    width: 90%;
+    height: 56px;
+    font-size: 21px;
+    margin: 10px auto;
+    border-radius: 4px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    align-items: center;
+    /* text-align: center; */
+}

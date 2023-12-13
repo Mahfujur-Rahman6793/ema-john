@@ -3,11 +3,36 @@ import { addToDb, deleteShoppingCart, getShoppingCart } from '../../utilities/fa
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css';
-import { Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
-    const [cart, setCart] = useState([])
+    const [cart, setCart] = useState([]);
+    const {count} = useLoaderData();
+    // console.log(count);
+    const itemPerPage = 10;
+    const totalItem = 76;
+    const numberOfPage = Math.ceil(totalItem / itemPerPage);
+
+    // const pages = [];
+
+    // for (let i = 0; i < numberOfPage; i++){
+    //     pages.push(i);
+    // }
+
+
+    const pages = [...Array(numberOfPage).keys()];
+    console.log(pages)
+
+
+
+    console.log(pages);
+
+
+    // work -
+    // 1.todo: count total item and calculate the number of page
+    // 2. create page using for loop or array
+    // 3. create button for pagination or user interaction
 
     useEffect(() => {
         fetch('http://localhost:5000/products')
@@ -81,6 +106,13 @@ const Shop = () => {
                         <button className='btn-proceed'>Review Order</button>
                     </Link>
                 </Cart>
+            </div>
+
+            <div className='pagination'>
+                {
+                    pages.map(page => <button> {page} </button>)
+                }
+
             </div>
         </div>
     );
