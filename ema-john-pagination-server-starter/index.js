@@ -1,5 +1,5 @@
 const express = require('express');
-const { MongoClient, ServerApiVersion, ClientEncryption } = require('mongodb');
+const { MongoClient, ServerApiVersion, ClientEncryption, ObjectId } = require('mongodb');
 const cors = require('cors');
 require('dotenv').config();
 const app = express();
@@ -29,9 +29,32 @@ const client = new MongoClient(uri, {
   
       const productCollection = client.db('emaJohnDB').collection('products');
   
-      app.get('/products', async(req, res) => {
-          const result = await productCollection.find().toArray();
+      app.get('/products', async (req, res) => {
+        const page = parseInt(req.query.page);
+        const size = parseInt(req.query.size);
+          console.log('requested page', req.query, page);
+        const result = await productCollection.find()
+          .skip(page * size)
+          .limit(size)
+          .toArray();
           res.send(result);
+      })
+      app.get('/counts', async (req, res) => {
+        const count = await productCollection.estimatedDocumentCount();
+        res.send({count})
+      })
+
+      app.post('/productsByIds', async (req, res) => {
+        const ids = req.body;
+        const idsWithObject = ids.map(id => new ObjectId(id));
+        const query = {
+          _id: {
+            $in: idsWithObject
+          }
+        }
+        // console.log(idsWithObject);
+        const result = await productCollection.find(query).toArray();
+        res.send(result);
       })
   
       // Send a ping to confirm a successful connection
